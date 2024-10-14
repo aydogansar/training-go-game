@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { GameRefProps } from '@/modules/goban/types';
 import Goban from '@/modules/goban';
-import { GAME } from '@/modules/goban/constants';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 function GoApp() {
