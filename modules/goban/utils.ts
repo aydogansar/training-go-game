@@ -90,6 +90,29 @@ export const removeCapturedStones = (board: Board, player: StoneType) => {
   return { board, isRemoveOpponentStones };
 };
 
+export const isInAtari = (x: number, y: number, board: Board): boolean => {
+  const currentPiece = board[y][x];
+
+  if (currentPiece === null) {
+    return false;
+  }
+
+  let libertyCount = 0;
+
+  for (const { dx, dy } of DIRECTIONS) {
+    const newX = x + dx;
+    const newY = y + dy;
+
+    if (newX >= 0 && newX < board[0].length && newY >= 0 && newY < board.length) {
+      if (board[newY][newX] === null) {
+        libertyCount++;
+      }
+    }
+  }
+
+  return libertyCount === 1; // Eğer sadece bir boş hücre varsa atari
+};
+
 export const getLastMove = (history: HistoryEntry[]) => {
   const newHistory = [...history];
   const lastMove = newHistory.pop();
@@ -114,7 +137,7 @@ export const canMove = (x: number, y: number, type: StoneType, board: Board, his
 
   const lastMove = getLastMove(history);
 
-  if (lastMove && lastMove.captured.some(item => item.x === x && item.y === y) && isRemoveOpponentStones) {
+  if (lastMove && lastMove.captured.some(item => item.x === x && item.y === y) && isRemoveOpponentStones && isInAtari(x, y, finalBoard)) {
     if (onError) {
       onError({
         name: 'ko',
