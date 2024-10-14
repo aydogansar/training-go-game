@@ -22,7 +22,7 @@ export const CONFIGS = {
       stroke: '#09090b',
     },
     white: {
-      fill: '#ffffff',
+      fill: '#fafafa',
       stroke: '#d1d5db',
     },
     strokeWidth: 1,
