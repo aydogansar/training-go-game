@@ -101,35 +101,29 @@ export const canMove = (x: number, y: number, type: StoneType, board: Board, his
   const current = board.map(row => [...row]);
   const { board: finalBoard, isRemoveOpponentStones } = removeCapturedStones(board, type);
 
-  let suicideMove = false;
-
   if (current[y][x] !== null && finalBoard[y][x] === null) {
-    suicideMove = true;
-
     if (onError) {
       onError({
         name: 'suicide',
         message: 'Kurallara aykırı hamle',
       });
     }
+
+    return false;
   }
 
   const lastMove = getLastMove(history);
 
-  let isKo = false;
-
   if (lastMove && lastMove.captured.some(item => item.x === x && item.y === y) && isRemoveOpponentStones) {
-    isKo = true;
-
     if (onError) {
       onError({
         name: 'ko',
         message: 'Ko!',
       });
     }
+
+    return false;
   }
 
-  const hasMove = !suicideMove && !isKo;
-
-  return hasMove;
+  return true;
 };
