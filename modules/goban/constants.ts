@@ -13,5 +13,19 @@ export const DIRECTIONS = [
   { dx: -1, dy: 0 }, // Sol
 ];
 
+export const CONFIGS = {
+  stones: {
+    black: {
+      fill: "#18181b",
+      stroke: "#09090b",
+    },
+    white: {
+      fill: "#ffffff",
+      stroke: "#d1d5db",
+    },
+    strokeWidth: 1,
+  },
+};
+
 
 export const first19Letters = [...Array(19)].map((_, i) => String.fromCharCode(97 + i).toUpperCase());
