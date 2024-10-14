@@ -8,16 +8,16 @@ const svgUtils = new SvgUtils();
 function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoordinates?: boolean) {
   const { initialState, board, setBoard, width, BOARD_PADDING, cellSize, size, COORDINAT_PADDING } = useGoContext();
 
-  const fontSize = 0.42 * cellSize;
+  const fontSize = 0.6 * cellSize;
 
   const drawBoard = () => {
     const svg = svgRef.current;
     if (svg) {
-      svg.innerHTML = "";
-      const background = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      background.setAttribute("width", String(width));
-      background.setAttribute("height", String(width));
-      background.setAttribute("fill", "#f0d9a8");
+      svg.innerHTML = '';
+      const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      background.setAttribute('width', String(width));
+      background.setAttribute('height', String(width));
+      background.setAttribute('fill', '#f0d9a8');
       svg.appendChild(background);
 
       for (let i = 0; i < size; i++) {
@@ -34,8 +34,9 @@ function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoord
         if (showCoordinates) {
           svg.appendChild(svgUtils.createText(yPos - 5, startPosition + fontSize / 4 - COORDINAT_PADDING, first19Letters[i], fontSize));
           svg.appendChild(svgUtils.createText(yPos - 5, endPosition + fontSize / 2 + COORDINAT_PADDING, first19Letters[i], fontSize));
-          svg.appendChild(svgUtils.createText(startPosition - fontSize / 2 - COORDINAT_PADDING, xPos + fontSize / 2, (i + 1).toString(), fontSize));
-          svg.appendChild(svgUtils.createText(endPosition - fontSize / 4 + COORDINAT_PADDING, xPos + fontSize / 2, (i + 1).toString(), fontSize));
+
+          svg.appendChild(svgUtils.createText(startPosition - fontSize / 2 - COORDINAT_PADDING, xPos + fontSize / 3, (size - i).toString(), fontSize));
+          svg.appendChild(svgUtils.createText(endPosition - fontSize / 4 + COORDINAT_PADDING, xPos + fontSize / 3, (size - i).toString(), fontSize));
         }
       }
     }
