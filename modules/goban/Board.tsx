@@ -9,7 +9,7 @@ import { useGoContext } from "./context";
 import Stone from "./Stone";
 
 import useActions from "./useActions";
-import useInitiliaze from "./useInitiliaze";
+import useInitiliaze from './useInitialize';
 import useResponsive from "./useResponsive";
 
 interface Props {
