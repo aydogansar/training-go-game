@@ -1,43 +1,45 @@
-export interface Piece {
+export type StoneType = 'white' | 'black' | null;
+
+export interface Stone {
   x: number;
   y: number;
-  type: string | null;
+  type: StoneType;
 }
 
-export type Board = (string | null)[][];
+export type Board = StoneType[][];
 
 export interface GameProps {
-  initialState?: Piece[];
-  initialPlayer?: string;
+  initialState?: Stone[];
+  initialPlayer?: StoneType;
   size?: number;
   initialWidth?: number;
-  onPlay?: (piexe: Piece, board: Board) => void;
-  onPass?: (player: string) => void;
-  onError?: (err: ErrorProps) => void;
+  onPlay?: onPlay;
+  onPass?: onPass;
+  onError?: onError;
   showCoordinates?: boolean;
 }
 
 export interface HistoryEntry {
   x: number;
   y: number;
-  type: string;
-  captured: Piece[];
+  type: StoneType;
+  captured: Stone[];
 }
 
 export interface ErrorProps {
-  name: "suicide" | "ko";
+  name: 'suicide' | 'ko';
   message: string;
 }
 
 export type CurrentPlayer = string;
 
 export interface GameRefProps {
-  makeMove: (x: number, y: number, type: string) => void;
+  makeMove: (x: number, y: number, type: StoneType) => void;
   undoLastMove: () => void;
   passTurn: () => void;
-  setCurrentPlayer: (player: string) => void;
+  setCurrentPlayer: (player: StoneType) => void;
 }
 
-export type onPlay = (piexe: Piece, board: Board) => void;
-export type onPass = (player: CurrentPlayer) => void;
+export type onPlay = (stone: Stone, board: Board) => void;
+export type onPass = (player: StoneType) => void;
 export type onError = (err: ErrorProps) => void;

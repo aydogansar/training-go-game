@@ -1,15 +1,15 @@
 import { createContext, useContext, useState, ReactNode, useRef, MutableRefObject } from "react";
 import { BOARD_PADDING_RATIO, COORDINAT_PADDING_RATIO, GAME } from "./constants";
 
-import type { Board, HistoryEntry, Piece, CurrentPlayer, onPlay, onPass, onError } from "./types";
+import type { Board, HistoryEntry, Stone, onPlay, onPass, onError, StoneType } from './types';
 
 interface GoContextProps {
-  initialState: Piece[];
+  initialState: Stone[];
   svgRef: MutableRefObject<SVGSVGElement | null>;
   board: Board;
   setBoard: (board: Board) => void;
-  currentPlayer: CurrentPlayer;
-  setCurrentPlayer: (player: CurrentPlayer) => void;
+  currentPlayer: StoneType;
+  setCurrentPlayer: (player: StoneType) => void;
   history: HistoryEntry[];
   setHistory: (history: HistoryEntry[]) => void;
   width: number;
@@ -29,8 +29,8 @@ interface GoContextProps {
 
 interface ProviderProps {
   children: ReactNode;
-  initialState?: Piece[];
-  initialPlayer?: CurrentPlayer;
+  initialState?: Stone[];
+  initialPlayer?: StoneType;
   size?: number;
   initialWidth?: number;
 
@@ -40,17 +40,38 @@ interface ProviderProps {
   onError?: onError;
 }
 
-// Default değer
+/**
+ * temporarily created by chatgpt
+ */
+const GoContext = createContext<GoContextProps>({
+  initialState: [],
+  svgRef: { current: null },
+  board: [], // Assuming Board is an array or any other initial structure
+  setBoard: () => {}, // A no-op function
+  currentPlayer: 'black', // Assuming 'black' and 'white' are possible StoneType values
+  setCurrentPlayer: () => {},
+  history: [],
+  setHistory: () => {},
+  width: 0,
+  setWidth: () => {},
+  BOARD_PADDING: 10, // Example padding
+  COORDINAT_PADDING: 5, // Example padding
+  cellSize: 30, // Example cell size
+  pieceR: 12, // Example piece radius
+  size: 19, // Example board size (19x19)
+  initialWidth: 600, // Example initial width
 
-// Context'i oluşturun
-const GoContext = createContext<GoContextProps>(undefined);
+  // Events
+  onPlay: undefined,
+  onPass: undefined,
+  onError: undefined,
+});
 
-// Provider bileşeni
 export function Provider({ children, size = 9, initialState = [], initialPlayer = GAME.BLACK, initialWidth = 600, onError, onPass, onPlay }: ProviderProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const [board, setBoard] = useState<Board>(Array.from({ length: size }, () => Array(size).fill(null)));
-  const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>(initialPlayer);
+  const [currentPlayer, setCurrentPlayer] = useState<StoneType>(initialPlayer);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   const [width, setWidth] = useState<number>(initialWidth);

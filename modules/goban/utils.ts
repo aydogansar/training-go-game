@@ -1,7 +1,7 @@
 import { DIRECTIONS, GAME } from "./constants";
-import type { Board, HistoryEntry, onError } from "./types";
+import type { Board, HistoryEntry, onError, StoneType } from './types';
 
-export const hasLiberty = (x: number, y: number, currentPiece: string | null, board: Board): boolean => {
+export const hasLiberty = (x: number, y: number, currentPiece: StoneType, board: Board): boolean => {
   const queue: { x: number; y: number }[] = [{ x, y }];
   const localVisited = new Set<string>();
 
@@ -33,7 +33,7 @@ export const hasLiberty = (x: number, y: number, currentPiece: string | null, bo
   return false; // Taşın özgürlüğü yok
 };
 
-export const removeCapturedStones = (board: Board, player: string) => {
+export const removeCapturedStones = (board: Board, player: StoneType) => {
   const visited = new Set<string>();
 
   const opponent = player === GAME.BLACK ? GAME.WHITE : GAME.BLACK;
@@ -97,8 +97,8 @@ export const getLastMove = (history: HistoryEntry[]) => {
   return lastMove;
 };
 
-export const canMove = (x: number, y: number, type: string, board: Board, history: HistoryEntry[], onError?: onError) => {
-  const current = board.map((row) => [...row]);
+export const canMove = (x: number, y: number, type: StoneType, board: Board, history: HistoryEntry[], onError?: onError) => {
+  const current = board.map(row => [...row]);
   const { board: finalBoard, isRemoveOpponentStones } = removeCapturedStones(board, type);
 
   let suicideMove = false;
@@ -108,8 +108,8 @@ export const canMove = (x: number, y: number, type: string, board: Board, histor
 
     if (onError) {
       onError({
-        name: "suicide",
-        message: "Kurallara aykırı hamle",
+        name: 'suicide',
+        message: 'Kurallara aykırı hamle',
       });
     }
   }
@@ -118,13 +118,13 @@ export const canMove = (x: number, y: number, type: string, board: Board, histor
 
   let isKo = false;
 
-  if (lastMove && lastMove.captured.some((item) => item.x === x && item.y === y) && isRemoveOpponentStones) {
+  if (lastMove && lastMove.captured.some(item => item.x === x && item.y === y) && isRemoveOpponentStones) {
     isKo = true;
 
     if (onError) {
       onError({
-        name: "ko",
-        message: "Ko!",
+        name: 'ko',
+        message: 'Ko!',
       });
     }
   }

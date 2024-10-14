@@ -1,15 +1,14 @@
 import { Ref, useImperativeHandle } from "react";
 import { GAME } from "./constants";
 import { useGoContext } from "./context";
-import { Piece } from "./types";
-import { canMove, removeCapturedStones } from "./utils";
-import { GameRefProps } from "./Game_old";
+import { Stone, StoneType, GameRefProps } from './types';
+import { canMove, removeCapturedStones } from './utils';
 
 function useActions(ref: Ref<GameRefProps>) {
   const { board, currentPlayer, history, setBoard, setHistory, setCurrentPlayer, onPlay, onPass, onError } = useGoContext();
 
-  const makeMove = (x: number, y: number, type: string) => {
-    const updatedBoard = board.map((row) => [...row]);
+  const makeMove = (x: number, y: number, type: StoneType) => {
+    const updatedBoard = board.map(row => [...row]);
     updatedBoard[y][x] = type;
 
     const opponent = currentPlayer === GAME.BLACK ? GAME.WHITE : GAME.BLACK;
@@ -21,7 +20,7 @@ function useActions(ref: Ref<GameRefProps>) {
     const { board: finalBoard } = removeCapturedStones(updatedBoard, type);
 
     // Kaldırılan taşları belirleyelim
-    const capturedStones: Piece[] = [];
+    const capturedStones: Stone[] = [];
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j] !== null && finalBoard[i][j] === null) {

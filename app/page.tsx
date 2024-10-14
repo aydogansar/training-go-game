@@ -1,26 +1,19 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
+import { GameRefProps } from '@/modules/goban/Game_old';
 import Goban from '@/modules/goban';
-// import { GAME } from '@/modules/goban/constants';
-
-// const initialState = [
-//   { x: 3, y: 3, type: GAME.BLACK },
-//   { x: 3, y: 4, type: GAME.WHITE },
-//   { x: 4, y: 3, type: GAME.WHITE },
-//   { x: 4, y: 4, type: GAME.WHITE },
-//   { x: 5, y: 5, type: GAME.BLACK },
-//   { x: 5, y: 6, type: GAME.WHITE },
-//   { x: 6, y: 5, type: GAME.WHITE },
-// ];
+import { GAME } from '@/modules/goban/constants';
+import { useRef } from 'react';
 
 export default function Home() {
-
+  const ref = useRef<GameRefProps>(null);
   return (
-    <div className="m-2">
+    <div className="flex gap-4 m-2">
       <Goban
-        // initialPlayer={GAME.WHITE}
-        // initialState={initialState}
+        ref={ref}
+        initialPlayer={GAME.WHITE}
         size={9}
         initialWidth={600}
         showCoordinates
@@ -31,6 +24,21 @@ export default function Home() {
           });
         }}
       />
+
+      <div className="flex flex-col gap-2">
+        <Button
+          variant="destructive"
+          onClick={() => ref.current?.undoLastMove()}
+        >
+          Geri Al
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => ref.current?.passTurn()}
+        >
+          Pas
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { CONFIGS } from "./constants";
-import type { Piece } from "./types";
+import type { Stone } from './types';
 
-interface Props extends Piece {
+interface Props extends Stone {
   r: number;
 }
 
