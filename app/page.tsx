@@ -11,7 +11,7 @@ export default function Home() {
   const ref = useRef<GameRefProps>(null);
 
   return (
-    <div className="flex gap-4 m-2">
+    <div className="flex justify-center items-center h-[100vh] gap-5 flex-col md:flex-row">
       <Goban
         ref={ref}
         initialPlayer={GAME.WHITE}
