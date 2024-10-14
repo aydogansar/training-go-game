@@ -128,7 +128,7 @@ export const canMove = (x: number, y: number, type: StoneType, board: Board, his
     if (onError) {
       onError({
         name: 'suicide',
-        message: 'Kurallara aykırı hamle',
+        message: 'Geçersiz hamle',
       });
     }
 
