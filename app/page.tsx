@@ -2,13 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import { GameRefProps } from '@/modules/goban/Game_old';
+import { GameRefProps } from '@/modules/goban/types';
 import Goban from '@/modules/goban';
 import { GAME } from '@/modules/goban/constants';
 import { useRef } from 'react';
 
 export default function Home() {
   const ref = useRef<GameRefProps>(null);
+
   return (
     <div className="flex gap-4 m-2">
       <Goban
