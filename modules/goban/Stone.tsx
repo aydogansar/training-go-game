@@ -5,18 +5,18 @@ import type { Stone } from './types';
 
 interface Props extends Stone {
   r: number;
-  isLastMove: boolean;
+  isLastMove?: boolean;
+  isIndicator?: boolean;
 }
 
 const stones = CONFIGS.stones;
 
-const Stone = ({ x, y, type, r, isLastMove }: Props) => {
+const Stone = ({ x, y, type, r, isLastMove, isIndicator }: Props) => {
   if (!type) {
     return null;
   }
 
   const selectedConfig = stones[type];
-
 
   return (
     <>
@@ -27,6 +27,7 @@ const Stone = ({ x, y, type, r, isLastMove }: Props) => {
         fill={selectedConfig.fill}
         stroke={selectedConfig.stroke}
         strokeWidth={stones.strokeWidth}
+        opacity={isIndicator ? '0.5' : '1'}
       />
       {isLastMove && (
         <circle

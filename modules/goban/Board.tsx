@@ -11,6 +11,8 @@ import Stone from "./Stone";
 import useActions from "./useActions";
 import useInitiliaze from './useInitialize';
 import useResponsive from "./useResponsive";
+import useIndicator from './useIndicator';
+import { calculateStonePositionsByMouse } from './utils';
 
 interface Props {
   showCoordinates?: boolean;
@@ -19,20 +21,29 @@ interface Props {
 const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
   const { width, cellSize, svgRef, BOARD_PADDING, size, board, pieceR: r, history, initialWidth, currentPlayer, setWidth } = useGoContext();
 
-  useInitiliaze(svgRef, showCoordinates);
+  const { isReady } = useInitiliaze(svgRef, showCoordinates);
 
   useResponsive({ svgRef, initialWidth, setWidth });
 
   const { makeMove } = useActions(ref);
 
+  const { indicator, onMouseMove, removeIndicator } = useIndicator(isReady);
+
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     if (svgRef.current) {
       const rect = svgRef.current.getBoundingClientRect();
-      const x = Math.floor((event.clientX - BOARD_PADDING - rect.left + cellSize / 2) / cellSize);
-      const y = Math.floor((event.clientY - BOARD_PADDING - rect.top + cellSize / 2) / cellSize);
+
+      const { x, y } = calculateStonePositionsByMouse({
+        clientX: event.clientX,
+        clientY: event.clientY,
+        cellSize,
+        extraPaddingX: -BOARD_PADDING - rect.left,
+        extraPaddingY: -BOARD_PADDING - rect.top,
+      });
 
       // Taş yerleştirilecek hücrenin sınırlarını kontrol et
       if (x >= 0 && x < size && y >= 0 && y < size && board[y][x] === null) {
+        removeIndicator();
         makeMove(x, y, currentPlayer);
       }
     }
@@ -44,6 +55,8 @@ const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
       width={width}
       height={width}
       onClick={handleClick}
+      onMouseMove={onMouseMove}
+      onMouseLeave={removeIndicator}
       className="select-none rounded-lg"
     >
       {board.map((row, y) =>
@@ -60,6 +73,16 @@ const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
               />
             )
         )
+      )}
+      {indicator && (
+        <Stone
+          key={`indicator-${indicator.x}-${indicator.y}`}
+          x={indicator.x * cellSize + BOARD_PADDING}
+          y={indicator.y * cellSize + BOARD_PADDING}
+          type={indicator.type}
+          r={r}
+          isIndicator
+        />
       )}
     </svg>
   );

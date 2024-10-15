@@ -1,11 +1,13 @@
-import { MutableRefObject, useEffect } from "react";
-import SvgUtils from "@/utils/svg";
-import { useGoContext } from "./context";
-import { first19Letters } from "./constants";
+import { MutableRefObject, useEffect, useState } from 'react';
+import SvgUtils from '@/utils/svg';
+import { useGoContext } from './context';
+import { first19Letters } from './constants';
 
 const svgUtils = new SvgUtils();
 
 function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoordinates?: boolean) {
+  const [isReady, setReady] = useState(false);
+
   const { initialState, board, setBoard, width, BOARD_PADDING, cellSize, size, COORDINAT_PADDING } = useGoContext();
 
   const fontSize = 0.6 * cellSize;
@@ -39,11 +41,15 @@ function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoord
           svg.appendChild(svgUtils.createText(endPosition - fontSize / 4 + COORDINAT_PADDING, xPos + fontSize / 3, (size - i).toString(), fontSize));
         }
       }
+
+      setReady(true);
     }
   };
 
   const setupInitialState = () => {
     const newBoard = [...board];
+
+    console.log({ initialState, newBoard });
     initialState.forEach(({ x, y, type }) => {
       newBoard[y][x] = type;
     });
@@ -60,5 +66,7 @@ function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoord
     drawBoard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
+  return { isReady };
 }
 export default useInitiliaze;
