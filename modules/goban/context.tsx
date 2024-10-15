@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useRef, MutableRefObject } from "react";
-import { BOARD_PADDING_RATIO, COORDINAT_PADDING_RATIO, GAME } from "./constants";
+import { BOARD_PADDING_RATIO, COORDINAT_PADDING_RATIO, GAME, STONE_RATIO } from './constants';
 
 import type { Board, HistoryEntry, Stone, onPlay, onPass, onError, StoneType } from './types';
 
@@ -31,6 +31,8 @@ interface ProviderProps {
   children: ReactNode;
   initialState?: Stone[];
   initialPlayer?: StoneType;
+  initialBoard?: Board;
+  initialHistory?: HistoryEntry[];
   size?: number;
   initialWidth?: number;
 
@@ -67,20 +69,32 @@ const GoContext = createContext<GoContextProps>({
   onError: undefined,
 });
 
-export function Provider({ children, size = 9, initialState = [], initialPlayer = GAME.BLACK, initialWidth = 600, onError, onPass, onPlay }: ProviderProps) {
+export function Provider({
+  children,
+  size = 9,
+  initialState = [],
+  initialPlayer = GAME.BLACK,
+  initialWidth = 600,
+  initialBoard = Array.from({ length: size }, () => Array(size).fill(null)),
+  initialHistory = [],
+
+  onError,
+  onPass,
+  onPlay,
+}: ProviderProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const [board, setBoard] = useState<Board>(Array.from({ length: size }, () => Array(size).fill(null)));
+  const [board, setBoard] = useState<Board>(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState<StoneType>(initialPlayer);
-  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [history, setHistory] = useState<HistoryEntry[]>(initialHistory);
 
   const [width, setWidth] = useState<number>(initialWidth);
 
-  const BOARD_PADDING = width / BOARD_PADDING_RATIO;
-  const COORDINAT_PADDING = width / COORDINAT_PADDING_RATIO;
+  const BOARD_PADDING = width * BOARD_PADDING_RATIO;
+  const COORDINAT_PADDING = width * COORDINAT_PADDING_RATIO;
 
   const cellSize = (width - BOARD_PADDING * 2) / (size - 1);
-  const r = cellSize / 2.5;
+  const r = cellSize * STONE_RATIO;
 
   return (
     <GoContext.Provider

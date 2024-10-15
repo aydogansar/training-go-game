@@ -49,18 +49,22 @@ function useInitiliaze(svgRef: MutableRefObject<SVGSVGElement | null>, showCoord
   const setupInitialState = () => {
     const newBoard = [...board];
 
-    console.log({ initialState, newBoard });
-    initialState.forEach(({ x, y, type }) => {
-      newBoard[y][x] = type;
-    });
+    if (initialState.length > 0) {
+      initialState.forEach(({ x, y, type }) => {
+        newBoard[y][x] = type;
+      });
 
-    setBoard(newBoard);
+      setBoard(newBoard);
+    }
   };
 
   useEffect(() => {
-    setupInitialState();
+    if (isReady) {
+      setupInitialState();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isReady]);
 
   useEffect(() => {
     drawBoard();

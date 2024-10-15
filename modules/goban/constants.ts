@@ -4,8 +4,9 @@ export const GAME = {
 } as const;
 
 export const DEFAULT_BOARD_SIZE = 9;
-export const BOARD_PADDING_RATIO = 8;
-export const COORDINAT_PADDING_RATIO = 15;
+export const BOARD_PADDING_RATIO = 0.125;
+export const COORDINAT_PADDING_RATIO = 0.0666;
+export const STONE_RATIO = 0.4;
 
 export const DIRECTIONS = [
   { dx: 0, dy: 1 }, // Up
