@@ -30,7 +30,7 @@ const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
   const { indicator, onMouseMove, removeIndicator } = useIndicator(isReady);
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    if (svgRef.current) {
+    if (svgRef.current && isReady) {
       const rect = svgRef.current.getBoundingClientRect();
 
       const { x, y } = calculateStonePositionsByMouse({
@@ -48,6 +48,7 @@ const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
       }
     }
   };
+
 
   return (
     <svg
