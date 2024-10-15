@@ -34,11 +34,20 @@ export const CONFIGS = {
     black: {
       fill: '#18181b',
       stroke: '#09090b',
+      lastMove: {
+        stroke: '#fafafa',
+        width: 2,
+      },
     },
     white: {
       fill: '#fafafa',
       stroke: '#d1d5db',
+      lastMove: {
+        stroke: '#09090b',
+        width: 2,
+      },
     },
+
     strokeWidth: 1,
   },
 };

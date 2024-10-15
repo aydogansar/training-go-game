@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
-  const { width, cellSize, svgRef, BOARD_PADDING, size, board, pieceR: r, initialWidth, currentPlayer, setWidth } = useGoContext();
+  const { width, cellSize, svgRef, BOARD_PADDING, size, board, pieceR: r, history, initialWidth, currentPlayer, setWidth } = useGoContext();
 
   useInitiliaze(svgRef, showCoordinates);
 
@@ -56,6 +56,7 @@ const Board = ({ showCoordinates }: Props, ref: Ref<GameRefProps>) => {
                 y={y * cellSize + BOARD_PADDING}
                 type={piece}
                 r={r}
+                isLastMove={history[history.length - 1].x === x && history[history.length - 1].y === y}
               />
             )
         )

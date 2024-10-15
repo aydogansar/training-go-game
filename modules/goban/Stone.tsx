@@ -5,28 +5,40 @@ import type { Stone } from './types';
 
 interface Props extends Stone {
   r: number;
+  isLastMove: boolean;
 }
 
 const stones = CONFIGS.stones;
 
-const Stone = ({ x, y, type, r }: Props) => {
+const Stone = ({ x, y, type, r, isLastMove }: Props) => {
   if (!type) {
     return null;
   }
 
-  const color = stones[type].fill;
+  const selectedConfig = stones[type];
 
-  const strokeColor = stones[type].stroke;
 
   return (
-    <circle
-      cx={x}
-      cy={y}
-      r={r}
-      fill={color}
-      stroke={strokeColor}
-      strokeWidth={stones.strokeWidth}
-    />
+    <>
+      <circle
+        cx={x}
+        cy={y}
+        r={r}
+        fill={selectedConfig.fill}
+        stroke={selectedConfig.stroke}
+        strokeWidth={stones.strokeWidth}
+      />
+      {isLastMove && (
+        <circle
+          cx={x}
+          cy={y}
+          r={r / 1.6}
+          fill="transparent"
+          stroke={selectedConfig.lastMove.stroke}
+          strokeWidth={selectedConfig.lastMove.width}
+        />
+      )}
+    </>
   );
 };
 
