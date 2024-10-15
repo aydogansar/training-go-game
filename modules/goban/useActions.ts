@@ -53,6 +53,8 @@ function useActions(ref: Ref<GameRefProps>) {
     const newHistory = [...history];
     const lastMove = newHistory.pop();
 
+    const opponent = currentPlayer === GAME.BLACK ? GAME.WHITE : GAME.BLACK;
+
     if (lastMove) {
       const newBoard = [...board];
       if (lastMove.x !== -1 && lastMove.y !== -1) {
@@ -67,6 +69,10 @@ function useActions(ref: Ref<GameRefProps>) {
       setBoard(newBoard);
       setHistory(newHistory);
       setCurrentPlayer(lastMove.type);
+
+      if (onPlay) {
+        onPlay({ move: lastMove, board: newBoard, history: newHistory, opponent, isUndoMove: true });
+      }
     }
   };
 
