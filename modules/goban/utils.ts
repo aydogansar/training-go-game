@@ -150,3 +150,20 @@ export const canMove = (x: number, y: number, type: StoneType, board: Board, his
 
   return true;
 };
+
+interface CalculateStonePositionsProps {
+  clientX: number;
+  clientY: number;
+  cellSize: number;
+  extraPaddingX: number;
+  extraPaddingY: number;
+}
+export function calculateStonePositionsByMouse({ clientX, clientY, cellSize, extraPaddingX, extraPaddingY }: CalculateStonePositionsProps) {
+  const x = Math.floor((clientX + extraPaddingX + cellSize / 2) / cellSize);
+  const y = Math.floor((clientY + extraPaddingY + cellSize / 2) / cellSize);
+
+  return {
+    x,
+    y,
+  };
+}
