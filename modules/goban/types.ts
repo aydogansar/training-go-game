@@ -40,6 +40,6 @@ export interface GameRefProps {
   setCurrentPlayer: (player: StoneType) => void;
 }
 
-export type onPlay = (stone: Stone, board: Board) => void;
+export type onPlay = (props: { move: Stone; board: Board; history: HistoryEntry[]; opponent: StoneType }) => void;
 export type onPass = (player: StoneType) => void;
 export type onError = (err: ErrorProps) => void;

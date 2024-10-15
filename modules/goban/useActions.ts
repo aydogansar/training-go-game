@@ -30,11 +30,12 @@ function useActions(ref: Ref<GameRefProps>) {
     }
 
     setBoard(finalBoard);
-    setHistory([...history, { x, y, type, captured: capturedStones }]);
+    const finalHistory = [...history, { x, y, type, captured: capturedStones }];
+    setHistory(finalHistory);
     setCurrentPlayer(opponent);
 
     if (onPlay) {
-      onPlay({ x, y, type }, finalBoard);
+      onPlay({ move: { x, y, type }, board: finalBoard, history: finalHistory, opponent });
     }
   };
 
