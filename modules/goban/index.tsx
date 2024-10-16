@@ -4,6 +4,7 @@ import { forwardRef, Ref } from "react";
 import Board from "./Board";
 import { Provider } from "./context";
 import type { GameProps, GameRefProps } from "./types";
+import BoardDecorations from './BoardDecorations';
 
 function GoGame(
   { initialState, initialPlayer, initialBoard, initialHistory, size, initialWidth, showCoordinates, onError, onPass, onPlay }: GameProps,
@@ -21,10 +22,14 @@ function GoGame(
       onPass={onPass}
       onPlay={onPlay}
     >
-      <Board
-        ref={ref}
-        showCoordinates={showCoordinates}
-      />
+      <div className="flex items-center justify-center relative h-auto">
+        <Board
+          ref={ref}
+          showCoordinates={showCoordinates}
+        >
+          <BoardDecorations showCoordinates={showCoordinates} />
+        </Board>
+      </div>
     </Provider>
   );
 }

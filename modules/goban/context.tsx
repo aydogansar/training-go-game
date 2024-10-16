@@ -90,8 +90,8 @@ export function Provider({
 
   const [width, setWidth] = useState<number>(initialWidth);
 
-  const BOARD_PADDING = width * BOARD_PADDING_RATIO;
-  const COORDINAT_PADDING = width * COORDINAT_PADDING_RATIO;
+  const BOARD_PADDING = (width * BOARD_PADDING_RATIO) / (size * 0.12);
+  const COORDINAT_PADDING = (width * COORDINAT_PADDING_RATIO) / (size * 0.111);
 
   const cellSize = (width - BOARD_PADDING * 2) / (size - 1);
   const r = cellSize * STONE_RATIO;

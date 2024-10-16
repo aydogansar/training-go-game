@@ -1,5 +1,6 @@
 import { useGoContext } from './context';
-import { first19Letters } from './constants';
+import { BOARD_BG_COLOR, BOARD_LINE_COLOR, BOARD_TEXT_COLOR, first19Letters, HOSHI_RATIO } from './constants';
+import { Fragment } from 'react';
 
 interface Props {
   showCoordinates?: boolean;
@@ -11,69 +12,132 @@ function BoardDecorations({ showCoordinates }: Props) {
   const startPosition = BOARD_PADDING;
   const endPosition = width - BOARD_PADDING;
 
-  const fontSize = 0.6 * cellSize;
+  const fontSize = (0.6 * cellSize) / (size * 0.1);
+
+  const tengen = Math.floor(size / 2);
+
+  const hoshiCoordinate = size < 13 ? 2 : 3;
+
+  const hoshiR = cellSize * HOSHI_RATIO;
 
   const sizeArray = Array.from({ length: size }, () => Array(size).fill(null));
 
-  return sizeArray.map((_, i) => {
+  const lines = sizeArray.map((_, i) => {
     const pos = i * cellSize + BOARD_PADDING;
 
     return (
-      <>
+      <Fragment key={i}>
         <line
-          key={i}
           x1={pos}
           y1={startPosition}
           x2={pos}
           y2={endPosition}
-          stroke="black"
+          stroke={BOARD_LINE_COLOR}
         />
         <line
-          key={i + 100}
           x1={startPosition}
           y1={pos}
           x2={endPosition}
           y2={pos}
-          stroke="black"
+          stroke={BOARD_LINE_COLOR}
         />
+
         {showCoordinates && (
           <>
+            {/* Up */}
             <text
               x={pos - 5}
               y={startPosition + fontSize / 4 - COORDINAT_PADDING}
               fontSize={fontSize}
-              fill="black"
+              stroke={BOARD_TEXT_COLOR}
             >
               {first19Letters[i]}
             </text>
+            {/* Down */}
             <text
               x={pos - 5}
               y={endPosition + fontSize / 2 + COORDINAT_PADDING}
               fontSize={fontSize}
-              fill="black"
+              stroke={BOARD_TEXT_COLOR}
             >
               {first19Letters[i]}
             </text>
+
+            {/* Left */}
             <text
               x={startPosition - fontSize / 2 - COORDINAT_PADDING}
               y={pos + fontSize / 3}
               fontSize={fontSize}
-              fill="black"
+              stroke={BOARD_TEXT_COLOR}
             >
               {size - i}
             </text>
+            {/* Right */}
             <text
               x={endPosition - fontSize / 4 + COORDINAT_PADDING}
               y={pos + fontSize / 3}
               fontSize={fontSize}
-              fill="black"
+              stroke={BOARD_TEXT_COLOR}
             >
               {size - i}
             </text>
           </>
         )}
-      </>
+      </Fragment>
     );
   });
+
+  return (
+    <>
+      <rect
+        width={width}
+        height={width}
+        fill={BOARD_BG_COLOR}
+      />
+
+      {lines}
+
+      {/** Hoshi */}
+
+      {/** Tengen */}
+      <circle
+        cx={tengen * cellSize + BOARD_PADDING}
+        cy={tengen * cellSize + BOARD_PADDING}
+        r={hoshiR}
+        fill={BOARD_LINE_COLOR}
+      />
+
+      {/** Top left hoshi */}
+      <circle
+        cx={hoshiCoordinate * cellSize + BOARD_PADDING}
+        cy={hoshiCoordinate * cellSize + BOARD_PADDING}
+        r={hoshiR}
+        fill={BOARD_LINE_COLOR}
+      />
+      {/**Top right hoshi */}
+      <circle
+        cx={(size - hoshiCoordinate - 1) * cellSize + BOARD_PADDING}
+        cy={hoshiCoordinate * cellSize + BOARD_PADDING}
+        r={hoshiR}
+        fill={BOARD_LINE_COLOR}
+      />
+      {/**Bottom left hoshi */}
+      <circle
+        cx={hoshiCoordinate * cellSize + BOARD_PADDING}
+        cy={(size - hoshiCoordinate - 1) * cellSize + BOARD_PADDING}
+        r={hoshiR}
+        fill={BOARD_LINE_COLOR}
+      />
+      {/**Bottom right hoshi */}
+      <circle
+        cx={(size - hoshiCoordinate - 1) * cellSize + BOARD_PADDING}
+        cy={(size - hoshiCoordinate - 1) * cellSize + BOARD_PADDING}
+        r={hoshiR}
+        fill={BOARD_LINE_COLOR}
+      />
+
+      {/** Hoshi */}
+    </>
+  );
 }
 export default BoardDecorations;
