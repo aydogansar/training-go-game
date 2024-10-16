@@ -11,40 +11,35 @@ function useResponsive({ svgRef, initialWidth, setWidth }: Props) {
     const svg = svgRef.current;
 
     if (svg) {
-      const svgDimensions = svg.getBoundingClientRect();
-
       const handleResize = () => {
-        const innerWidth = window.innerWidth - 50;
-        const innerHeight = window.innerHeight - 50;
+        const padding = window.innerWidth < 780 ? 5 : 50;
+        const innerWidth = window.innerWidth - padding;
+        const innerHeight = window.innerHeight - padding;
+
+        const svgDimensions = svg.getBoundingClientRect();
+        const availableWidth = innerWidth;
+        const availableHeight = innerHeight;
 
         const setSvgSize = (size: number) => {
-          svg?.setAttribute('width', String(size));
-          svg?.setAttribute('height', String(size));
-
+          svg.setAttribute('width', String(size));
+          svg.setAttribute('height', String(size));
           setWidth(size);
         };
 
-        // ilk istenen değer ekrana sığıyorsa
-        if (initialWidth < innerWidth && initialWidth < innerHeight) {
-          return setSvgSize(initialWidth);
-        }
+        const newSize = Math.min(availableWidth, availableHeight, initialWidth);
 
-        // svg'nin şu anki boyutları ekrana sığmıyorsa küçültüyoruz
-        if (innerWidth < svgDimensions.width || innerHeight < svgDimensions.height) {
-          const size = innerWidth < innerHeight ? innerWidth : innerHeight;
-
-          return setSvgSize(size);
+        if (newSize !== svgDimensions.width) {
+          setSvgSize(newSize);
         }
       };
 
       handleResize();
-
       window.addEventListener('resize', handleResize);
 
       return () => {
         window.removeEventListener('resize', handleResize);
       };
     }
-  }, [svgRef]);
+  }, [svgRef, initialWidth, setWidth]);
 }
 export default useResponsive;
