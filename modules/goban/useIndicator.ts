@@ -9,7 +9,7 @@ interface Indicator {
   type: StoneType;
 }
 
-function useIndicator(isReady: boolean) {
+function useIndicator() {
   const { svgRef, BOARD_PADDING, cellSize, size, currentPlayer, board, history } = useGoContext();
 
   const [indicator, setIndicator] = useState<Indicator | null>(null);
@@ -17,7 +17,7 @@ function useIndicator(isReady: boolean) {
   const removeIndicator = () => setIndicator(null);
 
   const onMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    if (svgRef.current && isReady) {
+    if (svgRef.current) {
       const rect = svgRef.current.getBoundingClientRect();
 
       const { x, y } = calculateStonePositionsByMouse({

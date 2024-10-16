@@ -3,6 +3,8 @@ export const GAME = {
   WHITE: 'white',
 } as const;
 
+export const BOARD_BG_COLOR = '#f0d9a8';
+
 export const DEFAULT_BOARD_SIZE = 9;
 export const BOARD_PADDING_RATIO = 0.125;
 export const COORDINAT_PADDING_RATIO = 0.0666;
