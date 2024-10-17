@@ -120,6 +120,16 @@ export const getLastMove = (history: HistoryEntry[]) => {
   return lastMove;
 };
 
+export const isLastMove = (x: number, y: number, history: HistoryEntry[]) => {
+  const lastMove = getLastMove(history);
+
+  if (lastMove) {
+    return lastMove.x === x && lastMove.y === y;
+  }
+
+  return false;
+};
+
 export const canMove = (x: number, y: number, type: StoneType, board: Board, history: HistoryEntry[], onError?: onError) => {
   const current = board.map(row => [...row]);
   const { board: finalBoard, isRemoveOpponentStones } = removeCapturedStones(board, type);
@@ -137,7 +147,9 @@ export const canMove = (x: number, y: number, type: StoneType, board: Board, his
 
   const lastMove = getLastMove(history);
 
-  if (lastMove && lastMove.captured.some(item => item.x === x && item.y === y) && isRemoveOpponentStones && isInAtari(x, y, finalBoard)) {
+  const isCapturedOnLastTurn = lastMove?.captured.some(item => item.x === x && item.y === y);
+
+  if (lastMove && isCapturedOnLastTurn && isRemoveOpponentStones && isInAtari(x, y, finalBoard)) {
     if (onError) {
       onError({
         name: 'ko',
