@@ -19,8 +19,8 @@ interface Props {
   children: ReactNode;
 }
 
-const Board = ({ showCoordinates, children }: Props, ref: Ref<GameRefProps>) => {
-  const { width, cellSize, svgRef, BOARD_PADDING, size, board, pieceR: r, history, initialWidth, currentPlayer, setWidth } = useGoContext();
+const Board = ({ children }: Props, ref: Ref<GameRefProps>) => {
+  const { width, cellSize, svgRef, BOARD_PADDING, size, board, pieceR: r, initialWidth, currentPlayer, setWidth } = useGoContext();
 
   useInitiliaze();
 
@@ -63,21 +63,6 @@ const Board = ({ showCoordinates, children }: Props, ref: Ref<GameRefProps>) => 
     >
       {children}
 
-      {board.map((row, y) =>
-        row.map(
-          (piece, x) =>
-            piece && (
-              <Stone
-                key={`${x}-${y}`}
-                x={x * cellSize + BOARD_PADDING}
-                y={y * cellSize + BOARD_PADDING}
-                type={piece}
-                r={r}
-                isLastMove={history[history.length - 1].x === x && history[history.length - 1].y === y}
-              />
-            )
-        )
-      )}
       {indicator && (
         <Stone
           key={`indicator-${indicator.x}-${indicator.y}`}

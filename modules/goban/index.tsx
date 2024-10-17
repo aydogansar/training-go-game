@@ -5,6 +5,7 @@ import Board from "./Board";
 import { Provider } from "./context";
 import type { GameProps, GameRefProps } from "./types";
 import BoardDecorations from './BoardDecorations';
+import Stones from './Stones';
 
 function GoGame(
   { initialState, initialPlayer, initialBoard, initialHistory, size, initialWidth, showCoordinates, onError, onPass, onPlay }: GameProps,
@@ -28,6 +29,7 @@ function GoGame(
           showCoordinates={showCoordinates}
         >
           <BoardDecorations showCoordinates={showCoordinates} />
+          <Stones />
         </Board>
       </div>
     </Provider>
