@@ -5,7 +5,9 @@ export const GAME = {
 
 export const BOARD_BG_COLOR = '#f0d9a8';
 export const BOARD_LINE_COLOR = '#09090b';
-export const BOARD_TEXT_COLOR = '#18181b';
+export const BOARD_TEXT_FILL_COLOR = '#27272a';
+export const BOARD_TEXT_SROKE_COLOR = '#09090b';
+export const BOARD_TEXT_FAMILY = 'font-rubik';
 
 export const DEFAULT_BOARD_SIZE = 9;
 export const BOARD_PADDING_RATIO = 0.125;

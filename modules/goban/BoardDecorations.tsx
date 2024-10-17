@@ -1,5 +1,5 @@
 import { useGoContext } from './context';
-import { BOARD_BG_COLOR, BOARD_LINE_COLOR, BOARD_TEXT_COLOR, first19Letters, HOSHI_RATIO } from './constants';
+import { BOARD_BG_COLOR, BOARD_LINE_COLOR, BOARD_TEXT_FAMILY, BOARD_TEXT_FILL_COLOR, BOARD_TEXT_SROKE_COLOR, first19Letters, HOSHI_RATIO } from './constants';
 import { Fragment } from 'react';
 
 interface Props {
@@ -12,7 +12,7 @@ function BoardDecorations({ showCoordinates }: Props) {
   const startPosition = BOARD_PADDING;
   const endPosition = width - BOARD_PADDING;
 
-  const fontSize = (0.6 * cellSize) / (size * 0.1);
+  const fontSize = 0.5 * cellSize;
 
   const tengen = Math.floor(size / 2);
 
@@ -49,7 +49,9 @@ function BoardDecorations({ showCoordinates }: Props) {
               x={pos - 5}
               y={startPosition + fontSize / 4 - COORDINAT_PADDING}
               fontSize={fontSize}
-              stroke={BOARD_TEXT_COLOR}
+              stroke={BOARD_TEXT_SROKE_COLOR}
+              fill={BOARD_TEXT_FILL_COLOR}
+              className={`${BOARD_TEXT_FAMILY}`}
             >
               {first19Letters[i]}
             </text>
@@ -58,7 +60,9 @@ function BoardDecorations({ showCoordinates }: Props) {
               x={pos - 5}
               y={endPosition + fontSize / 2 + COORDINAT_PADDING}
               fontSize={fontSize}
-              stroke={BOARD_TEXT_COLOR}
+              stroke={BOARD_TEXT_SROKE_COLOR}
+              fill={BOARD_TEXT_FILL_COLOR}
+              className={`${BOARD_TEXT_FAMILY}`}
             >
               {first19Letters[i]}
             </text>
@@ -68,7 +72,9 @@ function BoardDecorations({ showCoordinates }: Props) {
               x={startPosition - fontSize / 2 - COORDINAT_PADDING}
               y={pos + fontSize / 3}
               fontSize={fontSize}
-              stroke={BOARD_TEXT_COLOR}
+              stroke={BOARD_TEXT_SROKE_COLOR}
+              fill={BOARD_TEXT_FILL_COLOR}
+              className={`${BOARD_TEXT_FAMILY}`}
             >
               {size - i}
             </text>
@@ -77,7 +83,9 @@ function BoardDecorations({ showCoordinates }: Props) {
               x={endPosition - fontSize / 4 + COORDINAT_PADDING}
               y={pos + fontSize / 3}
               fontSize={fontSize}
-              stroke={BOARD_TEXT_COLOR}
+              stroke={BOARD_TEXT_SROKE_COLOR}
+              fill={BOARD_TEXT_FILL_COLOR}
+              className={`${BOARD_TEXT_FAMILY}`}
             >
               {size - i}
             </text>
