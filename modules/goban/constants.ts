@@ -52,7 +52,7 @@ export const CONFIGS = {
       fill: '#fafafa',
       stroke: '#d1d5db',
       lastMove: {
-        stroke: '#09090b',
+        stroke: '#18181b',
         width: 2,
       },
     },

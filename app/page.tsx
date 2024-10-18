@@ -1,4 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
+
 import dynamic from 'next/dynamic';
 
 const GoDemo = dynamic(() => import('./GoApp'), {

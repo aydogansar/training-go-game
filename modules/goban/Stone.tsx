@@ -1,6 +1,7 @@
 "use client";
 
-import { CONFIGS } from "./constants";
+
+import { CONFIGS } from './constants';
 import type { Stone } from './types';
 
 interface Props extends Stone {
@@ -19,7 +20,7 @@ const Stone = ({ x, y, type, r, isLastMove, isIndicator }: Props) => {
   const selectedConfig = stones[type];
 
   return (
-    <>
+    <g>
       <circle
         cx={x}
         cy={y}
@@ -33,13 +34,13 @@ const Stone = ({ x, y, type, r, isLastMove, isIndicator }: Props) => {
         <circle
           cx={x}
           cy={y}
-          r={r / 1.6}
+          r={r / 1.7}
           fill="transparent"
           stroke={selectedConfig.lastMove.stroke}
           strokeWidth={selectedConfig.lastMove.width}
         />
       )}
-    </>
+    </g>
   );
 };
 

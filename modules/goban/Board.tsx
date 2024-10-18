@@ -14,6 +14,7 @@ import useResponsive from './useResponsive';
 import useIndicator from './useIndicator';
 import { calculateStonePositionsByMouse } from './utils';
 
+
 interface Props {
   showCoordinates?: boolean;
   children: ReactNode;
