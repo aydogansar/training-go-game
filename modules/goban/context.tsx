@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, ReactNode, useRef, MutableRefObject } from "react";
 import { BOARD_PADDING_RATIO, COORDINAT_PADDING_RATIO, GAME, STONE_RATIO } from './constants';
 
-import type { Board, HistoryEntry, Stone, onPlay, onPass, onError, StoneType } from './types';
+import type { Board, HistoryEntry, onPlay, onPass, onError, StoneType } from './types';
 
 interface GoContextProps {
-  initialState: Stone[];
+  initialState: HistoryEntry[];
   svgRef: MutableRefObject<SVGSVGElement | null>;
   board: Board;
   setBoard: (board: Board) => void;
@@ -29,7 +29,7 @@ interface GoContextProps {
 
 interface ProviderProps {
   children: ReactNode;
-  initialState?: Stone[];
+  initialState?: HistoryEntry[];
   initialPlayer?: StoneType;
   initialBoard?: Board;
   initialHistory?: HistoryEntry[];

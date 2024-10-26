@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import SvgUtils from '@/utils/svg';
 import { useGoContext } from './context';
 
 function useInitiliaze() {
@@ -9,8 +8,14 @@ function useInitiliaze() {
     const newBoard = [...board];
 
     if (initialState.length > 0) {
-      initialState.forEach(({ x, y, type }) => {
+      initialState.forEach(({ x, y, type, captured }) => {
         newBoard[y][x] = type;
+
+        if (captured) {
+          captured.forEach(({ x, y }) => {
+            newBoard[y][x] = null;
+          });
+        }
       });
 
       setBoard(newBoard);

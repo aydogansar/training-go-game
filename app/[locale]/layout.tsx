@@ -4,7 +4,8 @@ import { Rubik } from 'next/font/google';
 
 import '@/styles/global.css';
 import { Toaster } from '@/components/ui/toaster';
-import Navbar from '@/modules/navbar';
+
+import Header from './header';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -33,8 +34,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={locale}>
-      <body className={`dark ${geistSans.variable} ${geistMono.variable} ${rubik.variable} pt-14`}>
-        <Navbar />
+      <body className={`dark ${geistSans.variable} ${geistMono.variable} ${rubik.variable} pt-24`}>
+        <Header />
 
         {children}
 

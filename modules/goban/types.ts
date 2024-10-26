@@ -9,7 +9,7 @@ export interface Stone {
 export type Board = StoneType[][];
 
 export interface GameProps {
-  initialState?: Stone[];
+  initialState?: HistoryEntry[];
   initialBoard?: Board;
   initialHistory?: HistoryEntry[];
   initialPlayer?: StoneType;

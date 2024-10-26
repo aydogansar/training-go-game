@@ -97,7 +97,6 @@ function BoardDecorations({ showCoordinates }: Props) {
       {/** Hoshi */}
 
       <g fill={BOARD_LINE_COLOR}>
-        
         {/** Tengen */}
         <circle
           cx={tengen * cellSize + BOARD_PADDING}

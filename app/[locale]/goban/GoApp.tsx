@@ -13,6 +13,7 @@ import Goban from '@/modules/goban';
 import { RocketIcon, TrashIcon } from '@radix-ui/react-icons';
 import { UndoIcon } from 'lucide-react';
 
+
 const BOARD_STORAGE_KEY = '_states';
 
 function GoApp() {
@@ -35,7 +36,7 @@ function GoApp() {
   const clearStates = () => localStorage.removeItem(BOARD_STORAGE_KEY);
 
   return (
-    <div className="flex justify-center items-center h-[100vh] gap-5 flex-col lg:flex-row">
+    <div className="flex justify-center items-center gap-5 flex-col lg:flex-row">
       <Goban
         key={size}
         ref={ref}

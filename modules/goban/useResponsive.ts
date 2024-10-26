@@ -14,7 +14,7 @@ function useResponsive({ svgRef, initialWidth, setWidth }: Props) {
       const handleResize = () => {
         const padding = window.innerWidth < 780 ? 5 : 50;
         const innerWidth = window.innerWidth - padding;
-        const innerHeight = window.innerHeight - padding;
+        const innerHeight = window.innerHeight - padding - 100;
 
         const svgDimensions = svg.getBoundingClientRect();
         const availableWidth = innerWidth;
