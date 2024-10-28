@@ -15,6 +15,12 @@ export const routing = defineRouting({
     '/goban': {
       tr: '/goban',
     },
+    '/trainings': {
+      tr: '/dersler',
+    },
+    '/trainings/[training]': {
+      tr: '/dersler/[training]',
+    },
   },
 });
 
