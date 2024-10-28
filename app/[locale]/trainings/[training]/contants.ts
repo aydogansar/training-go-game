@@ -73,6 +73,60 @@ export const takeStone: TrainingPlan = {
   ],
 };
 
+const defence: TrainingPlan = {
+  messages: [
+    'Şimdi de taşlarımızı savunalım. Siyah taşın tek nefesi kalmış. Hamle sırası siyahta, onun nefesini arttırabilirsin.',
+    'Bir taş başka bir taşa nefes noktasıyla bağlandığında grup oluştururlar. Artık nefes noktaları daha fazla ve siyah taş grubu kurtuldu!',
+    'Siyah taş grubunun tek nefesi var. Hamle sırası siyahta, taşların nefes noktasını arttırabilirsin.',
+    'Hamle sırası siyahta, nefes noktalarını arttır ve yaşa.',
+    'Hamle sırası beyazda. Beyaz grubun nefese ihtiyacı var.',
+  ],
+  states: [
+    [...calculateCoordinateBulk('[ee]', 'black'), ...calculateCoordinateBulk('[de][fe][ef]', 'white')],
+    [...calculateCoordinateBulk('[ed][ec][dd][fd]', 'black')],
+    [...calculateCoordinateBulk('[ee][ge][ef][gf][fg]', 'white'), ...calculateCoordinateBulk('[fe][ff]', 'black')],
+    [...calculateCoordinateBulk('[dh][fh][ci][gi]', 'white'), ...calculateCoordinateBulk('[eh][di][ei][fi]', 'black')],
+    [...calculateCoordinateBulk('[ee][ef][ff][fg]', 'white'), ...calculateCoordinateBulk('[ed][de][fe][df][gf][eg][gg]', 'black')],
+  ],
+  moves: [
+    {
+      ...calculateCoordinate('ed'),
+      type: 'black',
+      message: 'Başardın!',
+    },
+    null,
+    {
+      ...calculateCoordinate('fd'),
+      type: 'black',
+      message: 'Başardın!',
+    },
+    {
+      ...calculateCoordinate('eg'),
+      type: 'black',
+      message: 'Başardın!',
+    },
+    {
+      ...calculateCoordinate('fh'),
+      type: 'white',
+      message: 'Başardın!',
+    },
+  ],
+};
+
+const endGame: TrainingPlan = {
+  messages: ['Oyunda sınırlar kapandığında ve hamle kalmadığını düşündüğünde pas diyerek oyunu sonlandırabilirsin.'],
+  states: [
+    [
+      ...calculateCoordinateBulk('[da][eb][cc][dc][ec][fc][cd][fd][be][he][ie][bf][df][gf][if][ag][bg][cg][gg][hg][ah][hh][gi][hi]', 'white'),
+      ...calculateCoordinateBulk(
+        '[ea][fa][fb][gb][gc][dd][ed][gd][hd][id][ce][de][ee][fe][ge][cf][ff][dg][eg][fg][bh][ch][eh][fh][gh][ai][bi][ci][di][fi]',
+        'black'
+      ),
+    ],
+  ],
+  moves: [null],
+};
+
 export const trainings = [
   {
     key: 'start',
@@ -88,38 +142,38 @@ export const trainings = [
       },
       {
         key: 'defence',
-        label: 'Savun',
+        plan: defence,
       },
       {
         key: 'end-game',
-        label: 'Oyunu Sonlandır',
+        plan: endGame,
       },
     ],
   },
-  {
-    key: 'milestones',
-    label: 'Temel Stratejiler',
-    sub: [
-      {
-        key: 'board',
-        label: 'Tahta',
-      },
-      {
-        key: 'stairs',
-        label: 'Merdiven',
-      },
-      {
-        key: 'snapback',
-        label: 'Snapback',
-      },
-      {
-        key: 'seki',
-        label: 'Seki',
-      },
-      {
-        key: 'ko',
-        label: 'KO',
-      },
-    ],
-  },
+  // {
+  //   key: 'milestones',
+  //   label: 'Temel Stratejiler',
+  //   sub: [
+  //     {
+  //       key: 'board',
+  //       label: 'Tahta',
+  //     },
+  //     {
+  //       key: 'stairs',
+  //       label: 'Merdiven',
+  //     },
+  //     {
+  //       key: 'snapback',
+  //       label: 'Snapback',
+  //     },
+  //     {
+  //       key: 'seki',
+  //       label: 'Seki',
+  //     },
+  //     {
+  //       key: 'ko',
+  //       label: 'KO',
+  //     },
+  //   ],
+  // },
 ];
