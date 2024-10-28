@@ -1,5 +1,5 @@
-import { DIRECTIONS, GAME } from "./constants";
-import type { Board, HistoryEntry, onError, StoneType } from './types';
+import { DIRECTIONS, GAME } from './constants';
+import type { Board, HistoryEntry, onError, Stone, StoneType } from './types';
 
 export const hasLiberty = (x: number, y: number, currentPiece: StoneType, board: Board): boolean => {
   const queue: { x: number; y: number }[] = [{ x, y }];
@@ -178,4 +178,12 @@ export function calculateStonePositionsByMouse({ clientX, clientY, cellSize, ext
     x,
     y,
   };
+}
+
+export function isSameCoordinate(a: Stone, b: Stone) {
+  if (a.x === b.x && a.y === b.y && a.type === b.type) {
+    return true;
+  }
+
+  return false;
 }
