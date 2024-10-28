@@ -15,8 +15,8 @@ const GoDemo = dynamic(() => import('./GoApp'), {
 
 export default function GobanPage() {
   return (
-    <div>
+    <main>
       <GoDemo />
-    </div>
+    </main>
   );
 }
