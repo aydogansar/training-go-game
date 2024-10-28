@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={locale}>
-      <body className={`dark ${geistSans.variable} ${geistMono.variable} ${rubik.variable} pt-24`}>
+      <body className={`dark ${geistSans.variable} ${geistMono.variable} ${rubik.variable}`}>
         <Header />
 
         {children}

@@ -36,7 +36,7 @@ function GoApp() {
   const clearStates = () => localStorage.removeItem(BOARD_STORAGE_KEY);
 
   return (
-    <div className="flex justify-center items-center gap-5 flex-col lg:flex-row">
+    <div className="flex justify-center items-center gap-5 flex-col lg:flex-row mt-6">
       <Goban
         key={size}
         ref={ref}
