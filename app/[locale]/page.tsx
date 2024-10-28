@@ -1,3 +1,5 @@
+import { redirect } from '@/i18n/routing';
+
 export default function Home() {
-  return <div>ana sayfa</div>;
+  redirect('/trainings');
 }
