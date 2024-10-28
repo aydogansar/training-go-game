@@ -35,13 +35,15 @@ export interface ErrorProps {
 
 export type CurrentPlayer = string;
 
-export interface GameRefProps {
-  makeMove: (x: number, y: number, type: StoneType) => void;
-  undoLastMove: () => void;
-  passTurn: () => void;
-  setCurrentPlayer: (player: StoneType) => void;
-}
 
 export type onPlay = (props: { move: Stone; board: Board; history: HistoryEntry[]; opponent: StoneType; isUndoMove?: boolean }) => void;
 export type onPass = (player: StoneType) => void;
 export type onError = (err: ErrorProps) => void;
+
+export interface GameRefProps {
+  makeMove: (x: number, y: number, type: StoneType, board?: Board) => void;
+  undoLastMove: () => void;
+  passTurn: () => void;
+  setCurrentPlayer: (player: StoneType) => void;
+  resetBoard: (initialState?: HistoryEntry[]) => void;
+}

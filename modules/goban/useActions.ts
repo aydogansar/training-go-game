@@ -1,14 +1,14 @@
 import { Ref, useImperativeHandle } from "react";
 import { GAME } from "./constants";
 import { useGoContext } from "./context";
-import { Stone, StoneType, GameRefProps } from './types';
+import { Stone, StoneType, GameRefProps, Board, HistoryEntry } from './types';
 import { canMove, removeCapturedStones } from './utils';
 
 function useActions(ref: Ref<GameRefProps>) {
-  const { board, currentPlayer, history, setBoard, setHistory, setCurrentPlayer, onPlay, onPass, onError } = useGoContext();
+  const { board, currentPlayer, history, size, setBoard, setHistory, setCurrentPlayer, onPlay, onPass, onError } = useGoContext();
 
-  const makeMove = (x: number, y: number, type: StoneType) => {
-    const updatedBoard = board.map(row => [...row]);
+  const makeMove = (x: number, y: number, type: StoneType, newBoard: Board = board) => {
+    const updatedBoard = newBoard.map(row => [...row]);
     updatedBoard[y][x] = type;
 
     const opponent = currentPlayer === GAME.BLACK ? GAME.WHITE : GAME.BLACK;
@@ -76,17 +76,37 @@ function useActions(ref: Ref<GameRefProps>) {
     }
   };
 
+  const resetBoard = (initialState: HistoryEntry[] = []) => {
+    const newBoard = Array.from({ length: size }, () => Array(size).fill(null));
+
+    if (initialState.length > 0) {
+      initialState.forEach(({ x, y, type, captured }) => {
+        newBoard[y][x] = type;
+
+        if (captured) {
+          captured.forEach(({ x, y }) => {
+            newBoard[y][x] = null;
+          });
+        }
+      });
+    }
+
+    setBoard(newBoard);
+  };
+
   useImperativeHandle(ref, () => ({
     makeMove,
     undoLastMove,
     passTurn,
     setCurrentPlayer,
+    resetBoard,
   }));
 
   return {
     makeMove,
     undoLastMove,
     passTurn,
+    resetBoard,
   };
 }
 export default useActions;
