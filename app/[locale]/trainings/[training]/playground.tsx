@@ -98,7 +98,7 @@ function PlayGround({ activeTraining }: { activeTraining: string }) {
   const selectedButton = button[response?.type || 'success'];
 
   return (
-    <div className="px-12 flex flex-col lg:flex-row gap-6 w-full justify-center items-center">
+    <div className="px-2 lg:px-12 flex flex-col lg:flex-row gap-6 w-full justify-center items-center">
       <div className={cn(gobanVariants({ disabled: !!response }))}>
         <Goban
           key={active}

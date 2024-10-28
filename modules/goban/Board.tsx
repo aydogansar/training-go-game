@@ -55,12 +55,12 @@ const Board = ({ children }: Props, ref: Ref<GameRefProps>) => {
     <svg
       ref={svgRef}
       viewBox={`0 0 ${width} ${width}`}
-      width={width}
-      height={width}
+      width={initialWidth}
+      height={initialWidth}
       onClick={handleClick}
       onMouseMove={onMouseMove}
       onMouseLeave={removeIndicator}
-      className="select-none rounded-lg block max-w-full h-auto"
+      className="select-none rounded-lg block max-w-full  h-auto"
     >
       {children}
 
