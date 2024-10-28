@@ -26,6 +26,6 @@ function useInitiliaze() {
     setupInitialState();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialState]);
 }
 export default useInitiliaze;
